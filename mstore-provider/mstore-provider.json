@@ -1,0 +1,462 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Apache Ambari - Management Pack Store Provider APIs",
+        "description": "Management pack store provider APIs for Apache Ambari\n\n[Learn about Apache Ambari](https://ambari.apache.org/)\n",
+        "contact": {
+            "email": "dev@ambari.apache.org"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "localhost:8080",
+    "basePath": "/rest/v1",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/assets": {
+            "get": {
+                "tags": [
+                    "asset"
+                ],
+                "summary": "List assets\n",
+                "description": "Returns a list of assets",
+                "operationId": "getAssets",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/AssetCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/assets/{assetId}": {
+            "get": {
+                "tags": [
+                    "asset"
+                ],
+                "summary": "Get asset",
+                "description": "Returns an asset by id",
+                "operationId": "getAssetById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "assetId",
+                        "description": "ID of asset that needs to be fetched",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/AssetWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid asset ID supplied"
+                    },
+                    "404": {
+                        "description": "Asset not found"
+                    }
+                }
+            }
+        },
+        "/packages": {
+            "get": {
+                "tags": [
+                    "package"
+                ],
+                "summary": "List packages\n",
+                "description": "Returns a list of packages",
+                "operationId": "getPackages",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/PackageCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/packages/{packageName}": {
+            "get": {
+                "tags": [
+                    "package"
+                ],
+                "summary": "Get package",
+                "description": "Returns a package by name",
+                "operationId": "getPackageByName",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "packageName",
+                        "description": "Name of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/PackageWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid package name supplied"
+                    },
+                    "404": {
+                        "description": "Package not found"
+                    }
+                }
+            }
+        },
+        "/packages/{packageName}/versions": {
+            "get": {
+                "tags": [
+                    "package-version"
+                ],
+                "summary": "List package versions",
+                "description": "Returns list of package versions for a given package",
+                "operationId": "getPackageVersions",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "packageName",
+                        "description": "Name of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/PackageVersionCollection"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid package name supplied"
+                    },
+                    "404": {
+                        "description": "Package not found"
+                    }
+                }
+            }
+        },
+        "/packages/{packageName}/versions/{packageVersion}": {
+            "get": {
+                "tags": [
+                    "package-version"
+                ],
+                "summary": "Get package version",
+                "description": "Returns package version information",
+                "operationId": "getPackageVersion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "packageName",
+                        "description": "Name of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "packageVersion",
+                        "description": "Version of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/PackageVersionWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid package name or package version supplied"
+                    },
+                    "404": {
+                        "description": "Package version not found"
+                    }
+                }
+            }
+        },
+        "/packages/{packageName}/versions/{packageVersion}/download": {
+            "get": {
+                "tags": [
+                    "package-version"
+                ],
+                "summary": "Download package version mpack",
+                "description": "Dowload package version mpack",
+                "operationId": "downloadPackageVersion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "packageName",
+                        "description": "Name of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "packageVersion",
+                        "description": "Version of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "ambariVersion",
+                        "description": "Ambari version to use to fetch compatible mpack",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "operatingSystem",
+                        "description": "Operating system type to use to fetch compatible mpack",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/DownloadResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid package name or package version supplied"
+                    },
+                    "404": {
+                        "description": "Package version not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "AssetCollection": {
+            "title": "AssetCollection",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "description": "List of assets",
+                    "items": {
+                        "$ref": "#/definitions/AssetWrapper"
+                    }
+                }
+            }
+        },
+        "AssetWrapper": {
+            "title": "AssetWrapper",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "Asset": {
+                    "$ref": "#/definitions/Asset"
+                }
+            }
+        },
+        "Asset": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "urls": {
+                    "type": "string"
+                }
+            }
+        },
+        "PackageCollection": {
+            "title": "PackageCollection",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "description": "List of packages",
+                    "items": {
+                        "$ref": "#/definitions/PackageWrapper"
+                    }
+                }
+            }
+        },
+        "PackageWrapper": {
+            "title": "PackageWrapper",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "Package": {
+                    "$ref": "#/definitions/Package"
+                },
+                "versions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PackageVersionWrapper"
+                    }
+                }
+            }
+        },
+        "Package": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "logo": {
+                    "$ref": "#/definitions/AssetWrapper"
+                }
+            }
+        },
+        "PackageVersionCollection": {
+            "title": "PackageVersionCollection",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "description": "List of package versions",
+                    "items": {
+                        "$ref": "#/definitions/PackageVersionWrapper"
+                    }
+                }
+            }
+        },
+        "PackageVersionWrapper": {
+            "title": "PackageVersionWrapper",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "PackageVersion": {
+                    "$ref": "#/definitions/PackageVersion"
+                },
+                "mpack": {
+                    "$ref": "#/definitions/AssetWrapper"
+                },
+                "doc": {
+                    "$ref": "#/definitions/AssetWrapper"
+                },
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PackageService"
+                    }
+                },
+                "compatiblePackages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CompatiblePackage"
+                    }
+                }
+            }
+        },
+        "PackageVersion": {
+            "type": "object",
+            "properties": {
+                "version": {
+                    "type": "string"
+                },
+                "buildNumber": {
+                    "type": "string"
+                }
+            }
+        },
+        "PackageService": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "displayName": {
+                    "type": "string"
+                }
+            }
+        },
+        "CompatiblePackage": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "minVersion": {
+                    "type": "string"
+                },
+                "maxVersion": {
+                    "type": "string"
+                }
+            }
+        },
+        "DownloadResponse": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
