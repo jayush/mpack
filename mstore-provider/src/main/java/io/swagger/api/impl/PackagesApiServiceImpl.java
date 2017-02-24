@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-
+import io.swagger.model.DownloadResponse;
 import io.swagger.model.PackageCollection;
 import io.swagger.model.PackageVersionCollection;
 import io.swagger.model.PackageVersionWrapper;
@@ -31,7 +31,7 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-17T18:13:19.921Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-23T23:42:30.437Z")
 public class PackagesApiServiceImpl extends PackagesApiService {
     public static String baseUrl = "http://localhost:8080/rest/v1";
     PackageCollection packageCollection = null;

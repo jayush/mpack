@@ -7,6 +7,7 @@ import io.swagger.api.factories.PackagesApiServiceFactory;
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
+import io.swagger.model.DownloadResponse;
 import io.swagger.model.PackageCollection;
 import io.swagger.model.PackageVersionCollection;
 import io.swagger.model.PackageVersionWrapper;
@@ -29,7 +30,7 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the packages API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-17T18:13:19.921Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-23T23:42:30.437Z")
 public class PackagesApi  {
    private final PackagesApiService delegate = PackagesApiServiceFactory.getPackagesApi();
 
@@ -37,13 +38,13 @@ public class PackagesApi  {
     @Path("/{packageName}/versions/{packageVersion}/download")
     
     @Produces({ "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Download package version mpack", notes = "Dowload package version mpack", response = PackageVersionWrapper.class, tags={ "package-version", })
+    @io.swagger.annotations.ApiOperation(value = "Download package version mpack", notes = "Dowload package version mpack", response = DownloadResponse.class, tags={ "package-version", })
     @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = PackageVersionWrapper.class),
+        @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = DownloadResponse.class),
         
-        @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid package name or package version supplied", response = PackageVersionWrapper.class),
+        @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid package name or package version supplied", response = DownloadResponse.class),
         
-        @io.swagger.annotations.ApiResponse(code = 404, message = "Package version not found", response = PackageVersionWrapper.class) })
+        @io.swagger.annotations.ApiResponse(code = 404, message = "Package version not found", response = DownloadResponse.class) })
     public Response downloadPackageVersion(@ApiParam(value = "Name of package that needs to be fetched",required=true) @PathParam("packageName") String packageName
 ,@ApiParam(value = "Version of package that needs to be fetched",required=true) @PathParam("packageVersion") String packageVersion
 ,@ApiParam(value = "Ambari version to use to fetch compatible mpack",required=true) @QueryParam("ambariVersion") String ambariVersion

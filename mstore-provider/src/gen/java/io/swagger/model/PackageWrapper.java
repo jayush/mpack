@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * PackageWrapper
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-17T18:13:19.921Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-23T23:42:30.437Z")
 public class PackageWrapper   {
   @JsonProperty("href")
   private String href = null;
