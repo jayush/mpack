@@ -1,5 +1,5 @@
 /*
- * Swagger Server
+ * Apache Ambari - Management Pack Store Provider APIs
  * Management pack store provider APIs for Apache Ambari  [Learn about Apache Ambari](https://ambari.apache.org/) 
  *
  * OpenAPI spec version: 1.0.0

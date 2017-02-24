@@ -30,29 +30,10 @@ import javax.ws.rs.*;
 
 
 @io.swagger.annotations.Api(description = "the packages API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-23T23:42:30.437Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-24T19:26:54.139Z")
 public class PackagesApi  {
    private final PackagesApiService delegate = PackagesApiServiceFactory.getPackagesApi();
 
-    @GET
-    @Path("/{packageName}/versions/{packageVersion}/download")
-    
-    @Produces({ "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Download package version mpack", notes = "Dowload package version mpack", response = DownloadResponse.class, tags={ "package-version", })
-    @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = DownloadResponse.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid package name or package version supplied", response = DownloadResponse.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 404, message = "Package version not found", response = DownloadResponse.class) })
-    public Response downloadPackageVersion(@ApiParam(value = "Name of package that needs to be fetched",required=true) @PathParam("packageName") String packageName
-,@ApiParam(value = "Version of package that needs to be fetched",required=true) @PathParam("packageVersion") String packageVersion
-,@ApiParam(value = "Ambari version to use to fetch compatible mpack",required=true) @QueryParam("ambariVersion") String ambariVersion
-,@ApiParam(value = "Operating system type to use to fetch compatible mpack",required=true) @QueryParam("operatingSystem") String operatingSystem
-,@Context SecurityContext securityContext)
-    throws NotFoundException {
-        return delegate.downloadPackageVersion(packageName,packageVersion,ambariVersion,operatingSystem,securityContext);
-    }
     @GET
     @Path("/{packageName}")
     
@@ -85,6 +66,25 @@ public class PackagesApi  {
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.getPackageVersion(packageName,packageVersion,securityContext);
+    }
+    @GET
+    @Path("/{packageName}/versions/{packageVersion}/downloadUrl")
+    
+    @Produces({ "application/json" })
+    @io.swagger.annotations.ApiOperation(value = "Get package version management pack download url", notes = "Get package version management pack download url", response = DownloadResponse.class, tags={ "package-version", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = DownloadResponse.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid package name or package version supplied", response = DownloadResponse.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 404, message = "Package version not found", response = DownloadResponse.class) })
+    public Response getPackageVersionDownloadUrl(@ApiParam(value = "Name of package that needs to be fetched",required=true) @PathParam("packageName") String packageName
+,@ApiParam(value = "Version of package that needs to be fetched",required=true) @PathParam("packageVersion") String packageVersion
+,@ApiParam(value = "Ambari version to use to fetch compatible mpack",required=true) @QueryParam("ambariVersion") String ambariVersion
+,@ApiParam(value = "Operating system type to use to fetch compatible mpack",required=true) @QueryParam("operatingSystem") String operatingSystem
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.getPackageVersionDownloadUrl(packageName,packageVersion,ambariVersion,operatingSystem,securityContext);
     }
     @GET
     @Path("/{packageName}/versions")

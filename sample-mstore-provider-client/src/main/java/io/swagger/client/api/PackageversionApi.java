@@ -1,5 +1,5 @@
 /*
- * Swagger Server
+ * Apache Ambari - Management Pack Store Provider APIs
  * Management pack store provider APIs for Apache Ambari  [Learn about Apache Ambari](https://ambari.apache.org/) 
  *
  * OpenAPI spec version: 1.0.0
@@ -56,154 +56,6 @@ public class PackageversionApi {
         this.apiClient = apiClient;
     }
 
-    /* Build call for downloadPackageVersion */
-    private com.squareup.okhttp.Call downloadPackageVersionCall(String packageName, String packageVersion, String ambariVersion, String operatingSystem, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
-        
-        // create path and map variables
-        String localVarPath = "/packages/{packageName}/versions/{packageVersion}/download".replaceAll("\\{format\\}","json")
-        .replaceAll("\\{" + "packageName" + "\\}", apiClient.escapeString(packageName.toString()))
-        .replaceAll("\\{" + "packageVersion" + "\\}", apiClient.escapeString(packageVersion.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        if (ambariVersion != null)
-        localVarQueryParams.addAll(apiClient.parameterToPairs("", "ambariVersion", ambariVersion));
-        if (operatingSystem != null)
-        localVarQueryParams.addAll(apiClient.parameterToPairs("", "operatingSystem", operatingSystem));
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        if(progressListener != null) {
-            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
-                    .build();
-                }
-            });
-        }
-
-        String[] localVarAuthNames = new String[] {  };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
-    }
-    
-    @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call downloadPackageVersionValidateBeforeCall(String packageName, String packageVersion, String ambariVersion, String operatingSystem, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'packageName' is set
-        if (packageName == null) {
-            throw new ApiException("Missing the required parameter 'packageName' when calling downloadPackageVersion(Async)");
-        }
-        
-        // verify the required parameter 'packageVersion' is set
-        if (packageVersion == null) {
-            throw new ApiException("Missing the required parameter 'packageVersion' when calling downloadPackageVersion(Async)");
-        }
-        
-        // verify the required parameter 'ambariVersion' is set
-        if (ambariVersion == null) {
-            throw new ApiException("Missing the required parameter 'ambariVersion' when calling downloadPackageVersion(Async)");
-        }
-        
-        // verify the required parameter 'operatingSystem' is set
-        if (operatingSystem == null) {
-            throw new ApiException("Missing the required parameter 'operatingSystem' when calling downloadPackageVersion(Async)");
-        }
-        
-        
-        com.squareup.okhttp.Call call = downloadPackageVersionCall(packageName, packageVersion, ambariVersion, operatingSystem, progressListener, progressRequestListener);
-        return call;
-
-        
-        
-        
-        
-    }
-
-    /**
-     * Download package version mpack
-     * Dowload package version mpack
-     * @param packageName Name of package that needs to be fetched (required)
-     * @param packageVersion Version of package that needs to be fetched (required)
-     * @param ambariVersion Ambari version to use to fetch compatible mpack (required)
-     * @param operatingSystem Operating system type to use to fetch compatible mpack (required)
-     * @return DownloadResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public DownloadResponse downloadPackageVersion(String packageName, String packageVersion, String ambariVersion, String operatingSystem) throws ApiException {
-        ApiResponse<DownloadResponse> resp = downloadPackageVersionWithHttpInfo(packageName, packageVersion, ambariVersion, operatingSystem);
-        return resp.getData();
-    }
-
-    /**
-     * Download package version mpack
-     * Dowload package version mpack
-     * @param packageName Name of package that needs to be fetched (required)
-     * @param packageVersion Version of package that needs to be fetched (required)
-     * @param ambariVersion Ambari version to use to fetch compatible mpack (required)
-     * @param operatingSystem Operating system type to use to fetch compatible mpack (required)
-     * @return ApiResponse&lt;DownloadResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public ApiResponse<DownloadResponse> downloadPackageVersionWithHttpInfo(String packageName, String packageVersion, String ambariVersion, String operatingSystem) throws ApiException {
-        com.squareup.okhttp.Call call = downloadPackageVersionValidateBeforeCall(packageName, packageVersion, ambariVersion, operatingSystem, null, null);
-        Type localVarReturnType = new TypeToken<DownloadResponse>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
-    }
-
-    /**
-     * Download package version mpack (asynchronously)
-     * Dowload package version mpack
-     * @param packageName Name of package that needs to be fetched (required)
-     * @param packageVersion Version of package that needs to be fetched (required)
-     * @param ambariVersion Ambari version to use to fetch compatible mpack (required)
-     * @param operatingSystem Operating system type to use to fetch compatible mpack (required)
-     * @param callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     */
-    public com.squareup.okhttp.Call downloadPackageVersionAsync(String packageName, String packageVersion, String ambariVersion, String operatingSystem, final ApiCallback<DownloadResponse> callback) throws ApiException {
-
-        ProgressResponseBody.ProgressListener progressListener = null;
-        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
-
-        if (callback != null) {
-            progressListener = new ProgressResponseBody.ProgressListener() {
-                @Override
-                public void update(long bytesRead, long contentLength, boolean done) {
-                    callback.onDownloadProgress(bytesRead, contentLength, done);
-                }
-            };
-
-            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
-                @Override
-                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
-                    callback.onUploadProgress(bytesWritten, contentLength, done);
-                }
-            };
-        }
-
-        com.squareup.okhttp.Call call = downloadPackageVersionValidateBeforeCall(packageName, packageVersion, ambariVersion, operatingSystem, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<DownloadResponse>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
-        return call;
-    }
     /* Build call for getPackageVersion */
     private com.squareup.okhttp.Call getPackageVersionCall(String packageName, String packageVersion, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
@@ -329,6 +181,154 @@ public class PackageversionApi {
 
         com.squareup.okhttp.Call call = getPackageVersionValidateBeforeCall(packageName, packageVersion, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<PackageVersionWrapper>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /* Build call for getPackageVersionDownloadUrl */
+    private com.squareup.okhttp.Call getPackageVersionDownloadUrlCall(String packageName, String packageVersion, String ambariVersion, String operatingSystem, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/packages/{packageName}/versions/{packageVersion}/downloadUrl".replaceAll("\\{format\\}","json")
+        .replaceAll("\\{" + "packageName" + "\\}", apiClient.escapeString(packageName.toString()))
+        .replaceAll("\\{" + "packageVersion" + "\\}", apiClient.escapeString(packageVersion.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        if (ambariVersion != null)
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "ambariVersion", ambariVersion));
+        if (operatingSystem != null)
+        localVarQueryParams.addAll(apiClient.parameterToPairs("", "operatingSystem", operatingSystem));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getPackageVersionDownloadUrlValidateBeforeCall(String packageName, String packageVersion, String ambariVersion, String operatingSystem, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'packageName' is set
+        if (packageName == null) {
+            throw new ApiException("Missing the required parameter 'packageName' when calling getPackageVersionDownloadUrl(Async)");
+        }
+        
+        // verify the required parameter 'packageVersion' is set
+        if (packageVersion == null) {
+            throw new ApiException("Missing the required parameter 'packageVersion' when calling getPackageVersionDownloadUrl(Async)");
+        }
+        
+        // verify the required parameter 'ambariVersion' is set
+        if (ambariVersion == null) {
+            throw new ApiException("Missing the required parameter 'ambariVersion' when calling getPackageVersionDownloadUrl(Async)");
+        }
+        
+        // verify the required parameter 'operatingSystem' is set
+        if (operatingSystem == null) {
+            throw new ApiException("Missing the required parameter 'operatingSystem' when calling getPackageVersionDownloadUrl(Async)");
+        }
+        
+        
+        com.squareup.okhttp.Call call = getPackageVersionDownloadUrlCall(packageName, packageVersion, ambariVersion, operatingSystem, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Get package version management pack download url
+     * Get package version management pack download url
+     * @param packageName Name of package that needs to be fetched (required)
+     * @param packageVersion Version of package that needs to be fetched (required)
+     * @param ambariVersion Ambari version to use to fetch compatible mpack (required)
+     * @param operatingSystem Operating system type to use to fetch compatible mpack (required)
+     * @return DownloadResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public DownloadResponse getPackageVersionDownloadUrl(String packageName, String packageVersion, String ambariVersion, String operatingSystem) throws ApiException {
+        ApiResponse<DownloadResponse> resp = getPackageVersionDownloadUrlWithHttpInfo(packageName, packageVersion, ambariVersion, operatingSystem);
+        return resp.getData();
+    }
+
+    /**
+     * Get package version management pack download url
+     * Get package version management pack download url
+     * @param packageName Name of package that needs to be fetched (required)
+     * @param packageVersion Version of package that needs to be fetched (required)
+     * @param ambariVersion Ambari version to use to fetch compatible mpack (required)
+     * @param operatingSystem Operating system type to use to fetch compatible mpack (required)
+     * @return ApiResponse&lt;DownloadResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<DownloadResponse> getPackageVersionDownloadUrlWithHttpInfo(String packageName, String packageVersion, String ambariVersion, String operatingSystem) throws ApiException {
+        com.squareup.okhttp.Call call = getPackageVersionDownloadUrlValidateBeforeCall(packageName, packageVersion, ambariVersion, operatingSystem, null, null);
+        Type localVarReturnType = new TypeToken<DownloadResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get package version management pack download url (asynchronously)
+     * Get package version management pack download url
+     * @param packageName Name of package that needs to be fetched (required)
+     * @param packageVersion Version of package that needs to be fetched (required)
+     * @param ambariVersion Ambari version to use to fetch compatible mpack (required)
+     * @param operatingSystem Operating system type to use to fetch compatible mpack (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getPackageVersionDownloadUrlAsync(String packageName, String packageVersion, String ambariVersion, String operatingSystem, final ApiCallback<DownloadResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getPackageVersionDownloadUrlValidateBeforeCall(packageName, packageVersion, ambariVersion, operatingSystem, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<DownloadResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

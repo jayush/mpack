@@ -94,8 +94,8 @@ Class | Method | HTTP request | Description
 *AssetApi* | [**getAssets**](docs/AssetApi.md#getAssets) | **GET** /assets | List assets 
 *PackageApi* | [**getPackageByName**](docs/PackageApi.md#getPackageByName) | **GET** /packages/{packageName} | Get package
 *PackageApi* | [**getPackages**](docs/PackageApi.md#getPackages) | **GET** /packages | List packages 
-*PackageversionApi* | [**downloadPackageVersion**](docs/PackageversionApi.md#downloadPackageVersion) | **GET** /packages/{packageName}/versions/{packageVersion}/download | Download package version mpack
 *PackageversionApi* | [**getPackageVersion**](docs/PackageversionApi.md#getPackageVersion) | **GET** /packages/{packageName}/versions/{packageVersion} | Get package version
+*PackageversionApi* | [**getPackageVersionDownloadUrl**](docs/PackageversionApi.md#getPackageVersionDownloadUrl) | **GET** /packages/{packageName}/versions/{packageVersion}/downloadUrl | Get package version management pack download url
 *PackageversionApi* | [**getPackageVersions**](docs/PackageversionApi.md#getPackageVersions) | **GET** /packages/{packageName}/versions | List package versions
 
 

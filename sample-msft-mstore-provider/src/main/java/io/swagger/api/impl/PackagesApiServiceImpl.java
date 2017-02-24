@@ -31,7 +31,7 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-23T23:42:30.437Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-24T19:26:54.139Z")
 public class PackagesApiServiceImpl extends PackagesApiService {
     public static String baseUrl = "http://localhost:8082/rest/v1";
     PackageCollection packageCollection = null;
@@ -158,8 +158,7 @@ public class PackagesApiServiceImpl extends PackagesApiService {
     }
 
     @Override
-    public Response downloadPackageVersion(String packageName, String packageVersion, String ambariVersion, String operatingSystem, SecurityContext securityContext) throws NotFoundException {
-        // do some magic!
+    public Response getPackageVersionDownloadUrl(String packageName, String packageVersion, String ambariVersion, String operatingSystem, SecurityContext securityContext) throws NotFoundException {
         init();
         for(PackageWrapper packageWrapper : packageCollection.getItems()) {
             if(packageWrapper.getPackage().getName().equals(packageName)) {
@@ -214,6 +213,7 @@ public class PackagesApiServiceImpl extends PackagesApiService {
         }
         throw new NotFoundException(1, "Package version " + packageName + ":" + packageVersion + " not found");
     }
+
     @Override
     public Response getPackageVersions(String packageName, SecurityContext securityContext) throws NotFoundException {
         init();

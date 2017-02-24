@@ -1,5 +1,5 @@
 /*
- * Swagger Server
+ * Apache Ambari - Management Pack Store Provider APIs
  * Management pack store provider APIs for Apache Ambari  [Learn about Apache Ambari](https://ambari.apache.org/) 
  *
  * OpenAPI spec version: 1.0.0
@@ -22,7 +22,7 @@ import io.swagger.client.model.AssetWrapper;
 /**
  * ModelPackage
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-02-24T02:01:49.620Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-02-24T19:27:10.581Z")
 public class ModelPackage {
   @SerializedName("name")
   private String name = null;
@@ -96,10 +96,10 @@ public class ModelPackage {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelPackage modelPackage = (ModelPackage) o;
-    return Objects.equals(this.name, modelPackage.name) &&
-        Objects.equals(this.description, modelPackage.description) &&
-        Objects.equals(this.logo, modelPackage.logo);
+    ModelPackage _package = (ModelPackage) o;
+    return Objects.equals(this.name, _package.name) &&
+        Objects.equals(this.description, _package.description) &&
+        Objects.equals(this.logo, _package.logo);
   }
 
   @Override

@@ -1,5 +1,5 @@
 /*
- * Swagger Server
+ * Apache Ambari - Management Pack Store Provider APIs
  * Management pack store provider APIs for Apache Ambari  [Learn about Apache Ambari](https://ambari.apache.org/) 
  *
  * OpenAPI spec version: 1.0.0
@@ -35,25 +35,6 @@ public class PackageversionApiTest {
 
     
     /**
-     * Download package version mpack
-     *
-     * Dowload package version mpack
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void downloadPackageVersionTest() throws ApiException {
-        String packageName = null;
-        String packageVersion = null;
-        String ambariVersion = null;
-        String operatingSystem = null;
-        DownloadResponse response = api.downloadPackageVersion(packageName, packageVersion, ambariVersion, operatingSystem);
-
-        // TODO: test validations
-    }
-    
-    /**
      * Get package version
      *
      * Returns package version information
@@ -66,6 +47,25 @@ public class PackageversionApiTest {
         String packageName = null;
         String packageVersion = null;
         PackageVersionWrapper response = api.getPackageVersion(packageName, packageVersion);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Get package version management pack download url
+     *
+     * Get package version management pack download url
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void getPackageVersionDownloadUrlTest() throws ApiException {
+        String packageName = null;
+        String packageVersion = null;
+        String ambariVersion = null;
+        String operatingSystem = null;
+        DownloadResponse response = api.getPackageVersionDownloadUrl(packageName, packageVersion, ambariVersion, operatingSystem);
 
         // TODO: test validations
     }

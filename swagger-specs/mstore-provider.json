@@ -212,14 +212,14 @@
                 }
             }
         },
-        "/packages/{packageName}/versions/{packageVersion}/download": {
+        "/packages/{packageName}/versions/{packageVersion}/downloadUrl": {
             "get": {
                 "tags": [
                     "package-version"
                 ],
-                "summary": "Download package version mpack",
-                "description": "Dowload package version mpack",
-                "operationId": "downloadPackageVersion",
+                "summary": "Get package version management pack download url",
+                "description": "Get package version management pack download url",
+                "operationId": "getPackageVersionDownloadUrl",
                 "produces": [
                     "application/json"
                 ],

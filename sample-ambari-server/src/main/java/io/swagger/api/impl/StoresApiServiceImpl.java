@@ -63,7 +63,7 @@ public class StoresApiServiceImpl extends StoresApiService {
         PackageversionApi apiInstance = new PackageversionApi();
         apiInstance.setApiClient(apiClient);
         try {
-            DownloadResponse downloadResponse = apiInstance.downloadPackageVersion(
+            DownloadResponse downloadResponse = apiInstance.getPackageVersionDownloadUrl(
                 packageName, packageVersion, ambariVersion, operatingSystem);
             StoreDownloadResponse storeDownloadResponse = new StoreDownloadResponse();
             storeDownloadResponse.setUrl(downloadResponse.getUrl());

@@ -1,5 +1,5 @@
 /*
- * Swagger Server
+ * Apache Ambari - Management Pack Store Provider APIs
  * Management pack store provider APIs for Apache Ambari  [Learn about Apache Ambari](https://ambari.apache.org/) 
  *
  * OpenAPI spec version: 1.0.0
@@ -13,7 +13,7 @@
 
 package io.swagger.client;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-02-24T02:01:49.620Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2017-02-24T19:27:10.581Z")
 public class StringUtil {
   /**
    * Check if the given array contains the given value (with case-insensitive comparison).
