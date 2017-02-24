@@ -1,0 +1,663 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Apache Ambari - Ambari Stores API",
+        "description": "Unified API for registering multiple management package store providers with Ambari and querying list of available packages across multiple management package store providers.\n\n[Learn about Apache Ambari](https://ambari.apache.org/)\n",
+        "contact": {
+            "email": "dev@ambari.apache.org"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v2",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/stores": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Register management pack store provider with Ambari\n",
+                "description": "Register management pack store provider with Ambari\n",
+                "operationId": "addStore",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Management pack store provider to be registered.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/StoreWrapper"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/StoreWrapper"
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "List registered management pack store providers\n",
+                "description": "Returns a list of registered management pack store proviers",
+                "operationId": "getStores",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/StoreCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/stores/{storeId}": {
+            "get": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Get registered management pack store provider info",
+                "description": "Returns a registered management pack store provider by id",
+                "operationId": "getStoreById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "storeId",
+                        "description": "ID of registered management pack store provider",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/StoreWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid store ID supplied"
+                    },
+                    "404": {
+                        "description": "Store not found"
+                    }
+                }
+            }
+        },
+        "/stores/{storeId}/assets": {
+            "get": {
+                "tags": [
+                    "store-asset"
+                ],
+                "summary": "List assets available in a registered management pack store provider\n",
+                "description": "Returns a list of assets in a registered management pack store provider",
+                "operationId": "getStoreAssets",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "storeId",
+                        "description": "ID of registered management pack store provider",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/StoreAssetCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/stores/{storeId}/assets/{assetId}": {
+            "get": {
+                "tags": [
+                    "store-asset"
+                ],
+                "summary": "Get specific asset in a registered management pack store provider",
+                "description": "Returns a specific asset in a registered management pack store provider",
+                "operationId": "getStoreAssetById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "storeId",
+                        "description": "ID of registered management pack store provider",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "path",
+                        "name": "assetId",
+                        "description": "ID of asset that needs to be fetched",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/StoreAssetWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid store ID or asset ID supplied"
+                    },
+                    "404": {
+                        "description": "Store asset not found"
+                    }
+                }
+            }
+        },
+        "/stores/{storeId}/packages": {
+            "get": {
+                "tags": [
+                    "store-package"
+                ],
+                "summary": "List packages available in a registered management pack store provider\n",
+                "description": "Returns a list of packages available in a registered management pack store provider",
+                "operationId": "getStorePackages",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "storeId",
+                        "description": "ID of registered management pack store provider",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/StorePackageCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/stores/{storeId}/packages/{packageName}": {
+            "get": {
+                "tags": [
+                    "store-package"
+                ],
+                "summary": "Get specific management package in a registered management pack store provider",
+                "description": "Returns a management package by name within a registered management pack store provider",
+                "operationId": "getStorePackageByName",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "storeId",
+                        "description": "ID of registered management pack store provider",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "path",
+                        "name": "packageName",
+                        "description": "Name of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/StorePackageWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid store ID or package name supplied"
+                    },
+                    "404": {
+                        "description": "Store Package not found"
+                    }
+                }
+            }
+        },
+        "/stores/{storeId}/packages/{packageName}/versions": {
+            "get": {
+                "tags": [
+                    "store-package-version"
+                ],
+                "summary": "List package versions",
+                "description": "Returns list of package versions for a given package in a given management pack store registered with Ambari.",
+                "operationId": "getStorePackageVersions",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "storeId",
+                        "description": "ID of registered management pack store provider",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "path",
+                        "name": "packageName",
+                        "description": "Name of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/StorePackageVersionCollection"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid store ID or package name supplied"
+                    },
+                    "404": {
+                        "description": "Package not found"
+                    }
+                }
+            }
+        },
+        "/stores/{storeId}/packages/{packageName}/versions/{packageVersion}": {
+            "get": {
+                "tags": [
+                    "store-package-version"
+                ],
+                "summary": "Get package version",
+                "description": "Returns package version information",
+                "operationId": "getStorePackageVersion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "storeId",
+                        "description": "ID of registered management pack store provider",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "path",
+                        "name": "packageName",
+                        "description": "Name of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "packageVersion",
+                        "description": "Version of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/StorePackageVersionWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid package name or package version supplied"
+                    },
+                    "404": {
+                        "description": "Package version not found"
+                    }
+                }
+            }
+        },
+        "/stores/{storeId}/packages/{packageName}/versions/{packageVersion}/download": {
+            "get": {
+                "tags": [
+                    "store-package-version"
+                ],
+                "summary": "Download package version mpack",
+                "description": "Dowload package version mpack",
+                "operationId": "downloadStorePackageVersion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "storeId",
+                        "description": "ID of registered management pack store provider",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "path",
+                        "name": "packageName",
+                        "description": "Name of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "packageVersion",
+                        "description": "Version of package that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "ambariVersion",
+                        "description": "Ambari version to use to fetch compatible mpack",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "operatingSystem",
+                        "description": "Operating system type to use to fetch compatible mpack",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/StoreDownloadResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid package name or package version supplied"
+                    },
+                    "404": {
+                        "description": "Package version not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "StoreCollection": {
+            "title": "StoreCollection",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "description": "List of registered management pack stores",
+                    "items": {
+                        "$ref": "#/definitions/StoreWrapper"
+                    }
+                }
+            }
+        },
+        "StoreWrapper": {
+            "title": "StoreWrapper",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "Store": {
+                    "$ref": "#/definitions/Store"
+                }
+            }
+        },
+        "Store": {
+            "title": "Store",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "StoreAssetCollection": {
+            "title": "AssetCollection",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "description": "List of assets",
+                    "items": {
+                        "$ref": "#/definitions/StoreAssetWrapper"
+                    }
+                }
+            }
+        },
+        "StoreAssetWrapper": {
+            "title": "StoreAssetWrapper",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "Asset": {
+                    "$ref": "#/definitions/StoreAsset"
+                }
+            }
+        },
+        "StoreAsset": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "urls": {
+                    "type": "string"
+                }
+            }
+        },
+        "StorePackageCollection": {
+            "title": "StorePackageCollection",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "description": "List of packages",
+                    "items": {
+                        "$ref": "#/definitions/StorePackageWrapper"
+                    }
+                }
+            }
+        },
+        "StorePackageWrapper": {
+            "title": "StorePackageWrapper",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "Package": {
+                    "$ref": "#/definitions/StorePackage"
+                },
+                "versions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/StorePackageVersionWrapper"
+                    }
+                }
+            }
+        },
+        "StorePackage": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "logo": {
+                    "$ref": "#/definitions/StoreAssetWrapper"
+                }
+            }
+        },
+        "StorePackageVersionCollection": {
+            "title": "StorePackageVersionCollection",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "description": "List of package versions",
+                    "items": {
+                        "$ref": "#/definitions/StorePackageVersionWrapper"
+                    }
+                }
+            }
+        },
+        "StorePackageVersionWrapper": {
+            "title": "StorePackageVersionWrapper",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "PackageVersion": {
+                    "$ref": "#/definitions/StorePackageVersion"
+                },
+                "mpack": {
+                    "$ref": "#/definitions/StoreAssetWrapper"
+                },
+                "doc": {
+                    "$ref": "#/definitions/StoreAssetWrapper"
+                },
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/StorePackageService"
+                    }
+                },
+                "compatiblePackages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/StoreCompatiblePackage"
+                    }
+                }
+            }
+        },
+        "StorePackageVersion": {
+            "type": "object",
+            "properties": {
+                "version": {
+                    "type": "string"
+                },
+                "buildNumber": {
+                    "type": "string"
+                }
+            }
+        },
+        "StorePackageService": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "displayName": {
+                    "type": "string"
+                }
+            }
+        },
+        "StoreCompatiblePackage": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "minVersion": {
+                    "type": "string"
+                },
+                "maxVersion": {
+                    "type": "string"
+                }
+            }
+        },
+        "StoreDownloadResponse": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

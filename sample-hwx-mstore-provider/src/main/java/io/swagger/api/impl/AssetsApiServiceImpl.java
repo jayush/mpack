@@ -21,7 +21,7 @@ import javax.ws.rs.core.SecurityContext;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-23T23:42:30.437Z")
 public class AssetsApiServiceImpl extends AssetsApiService {
 
-    public static String baseUrl = "http://localhost:8080/rest/v1";
+    public static String baseUrl = "http://localhost:8081/rest/v1";
     AssetCollection assetCollection = null;
     Map<Long, AssetWrapper> assetMap = new HashMap<>();
 
