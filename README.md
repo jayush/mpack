@@ -5,6 +5,14 @@
 git clone https://github.com/jayush/mpack.git
 ```
 
+## Project Layout
+swagger-specs - Swagger specification (in json and yaml format) for store provider APIs and new Ambari Rest APIs.
+sample-hwx-mstore-provider - Sample Hortonworks Management Pack Store Provider Server
+sample-msft-mstore-provider - Sample Third Party Management Pack Store Provider Server
+sample-mstore-provider-client - Java Client Library for Management Pack Store Providers
+sample-ambari-server - Sample Ambari Server that implements the Ambari REST APIs (api/v2/stores, api/v2/mpacks) 
+
+
 ## Deploy Hortonworks Management Pack Store Provider
 ```
 cd sample-hwx-mstore-provider
