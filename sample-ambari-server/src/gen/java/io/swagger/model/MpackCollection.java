@@ -18,32 +18,62 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.model.MpackWrapper;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * StoreDownloadResponse
+ * MpackCollection
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-24T21:27:39.655Z")
-public class StoreDownloadResponse   {
-  @JsonProperty("url")
-  private String url = null;
+public class MpackCollection   {
+  @JsonProperty("href")
+  private String href = null;
 
-  public StoreDownloadResponse url(String url) {
-    this.url = url;
+  @JsonProperty("items")
+  private List<MpackWrapper> items = new ArrayList<MpackWrapper>();
+
+  public MpackCollection href(String href) {
+    this.href = href;
     return this;
   }
 
    /**
-   * Get url
-   * @return url
+   * Get href
+   * @return href
   **/
-  @JsonProperty("url")
+  @JsonProperty("href")
   @ApiModelProperty(value = "")
-  public String getUrl() {
-    return url;
+  public String getHref() {
+    return href;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setHref(String href) {
+    this.href = href;
+  }
+
+  public MpackCollection items(List<MpackWrapper> items) {
+    this.items = items;
+    return this;
+  }
+
+  public MpackCollection addItemsItem(MpackWrapper itemsItem) {
+    this.items.add(itemsItem);
+    return this;
+  }
+
+   /**
+   * List of installed management packs
+   * @return items
+  **/
+  @JsonProperty("items")
+  @ApiModelProperty(value = "List of installed management packs")
+  public List<MpackWrapper> getItems() {
+    return items;
+  }
+
+  public void setItems(List<MpackWrapper> items) {
+    this.items = items;
   }
 
 
@@ -55,22 +85,24 @@ public class StoreDownloadResponse   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    StoreDownloadResponse storeDownloadResponse = (StoreDownloadResponse) o;
-    return Objects.equals(this.url, storeDownloadResponse.url);
+    MpackCollection mpackCollection = (MpackCollection) o;
+    return Objects.equals(this.href, mpackCollection.href) &&
+        Objects.equals(this.items, mpackCollection.items);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url);
+    return Objects.hash(href, items);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class StoreDownloadResponse {\n");
+    sb.append("class MpackCollection {\n");
     
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    href: ").append(toIndentedString(href)).append("\n");
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");
     return sb.toString();
   }

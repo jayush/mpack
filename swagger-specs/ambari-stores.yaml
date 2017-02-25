@@ -107,13 +107,11 @@ paths:
         "400":
           description: Invalid store ID supplied 
 
-  
-  ######################################
-  # API: getStoreAssets
-  # List assets
-  ######################################
   /stores/{storeId}/assets:
-    # This is a HTTP operation
+    ######################################
+    # API: getStoreAssets
+    # List assets
+    ######################################
     get:
       tags:
         - store-asset
@@ -139,11 +137,12 @@ paths:
           # Use JSON Schema format
           schema:
             $ref : "#/definitions/StoreAssetCollection"  
-  ######################################
-  # API: getStoreAsset
-  # Get asset
-  ######################################
+
   /stores/{storeId}/assets/{assetId}:
+    ######################################
+    # API: getStoreAsset
+    # Get asset
+    ######################################
     get:
       tags:
         - store-asset
@@ -174,12 +173,12 @@ paths:
             $ref: "#/definitions/StoreAssetWrapper"
         "400":
           description: Invalid store ID or asset ID supplied                 
-  ######################################
-  # API: getStorePackages
-  # List packages
-  ######################################
+
   /stores/{storeId}/packages:
-    # This is a HTTP operation
+    ######################################
+    # API: getStorePackages
+    # List packages
+    ######################################
     get:
       tags:
         - store-package    
@@ -206,11 +205,12 @@ paths:
           # Use JSON Schema format
           schema:
             $ref : "#/definitions/StorePackageCollection"
-  ######################################
-  # API: getStorePackage
-  # Get package
-  ######################################
+
   /stores/{storeId}/packages/{packageName}:
+    ######################################
+    # API: getStorePackage
+    # Get package
+    ######################################
     get:
       tags:
         - store-package
@@ -240,11 +240,12 @@ paths:
             $ref: "#/definitions/StorePackageWrapper"
         "400":
           description: Invalid store ID or package name supplied     
-  ######################################
-  # API: getStorePackageVersions
-  # List store package versions
-  ######################################
+
   /stores/{storeId}/packages/{packageName}/versions:
+    ######################################
+    # API: getStorePackageVersions
+    # List store package versions
+    ######################################  
     get:
       tags:
         - store-package-version
@@ -274,11 +275,12 @@ paths:
             $ref: "#/definitions/StorePackageVersionCollection"
         "400":
           description: Invalid store ID or package name supplied
-  ######################################
-  # API: getStorePackageVersion
-  # Get package version
-  ######################################
+
   /stores/{storeId}/packages/{packageName}/versions/{packageVersion}:
+    ######################################
+    # API: getStorePackageVersion
+    # Get package version
+    ######################################  
     get:
       tags:
         - store-package-version
@@ -314,17 +316,17 @@ paths:
         "400":
           description: Invalid package name or package version supplied   
           
-  ######################################
-  # API: downloadStorePackageVersion
-  # Download store package version
-  ######################################
-  /stores/{storeId}/packages/{packageName}/versions/{packageVersion}/download:
+  /stores/{storeId}/packages/{packageName}/versions/{packageVersion}/downloadUrl:
+    ##########################################
+    # API: getStorePackageVersionDownloadUrl
+    # Get store package version download url
+    ##########################################
     get:
       tags:
         - store-package-version
       summary: Download package version mpack
       description: Dowload package version mpack
-      operationId: downloadStorePackageVersion
+      operationId: getStorePackageVersionDownloadUrl
       produces:
         - application/json
       parameters:
@@ -363,7 +365,121 @@ paths:
             $ref: "#/definitions/StoreDownloadResponse"
         "400":
           description: Invalid package name or package version supplied             
-      
+
+  /mpacks:
+    #####################################################################
+    # API: addMpack
+    # Install management pack in Ambari
+    #####################################################################
+    post:
+      tags:
+        - mpack
+      summary:  |
+        Install management pack in Ambari
+      description:  |
+        Install management pack in Ambari
+      operationId: addMpack
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Management pack to be registered.
+          required: false
+          schema:
+            $ref: "#/definitions/MpackWrapper"      
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/MpackWrapper"
+        "405":
+          description: Invalid input
+    ######################################
+    # API: getMpacks
+    # List installed management packs
+    ######################################
+    get:
+      tags:
+        - mpack
+      summary:  |
+        List installed management packs
+      description: Returns list of installed management packs
+      operationId: getMpacks
+      produces:
+        - application/json
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        "200":
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            $ref : "#/definitions/MpackCollection"  
+
+  /mpacks/{mpackId}:
+    ######################################
+    # API: getMpack
+    # Get management pack
+    ######################################
+    get:
+      tags:
+        - mpack
+      summary: Get management pack info
+      description: Returns management pack by id
+      operationId: getMpackById
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: mpackId
+          description: ID of installed management pack
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Mpack not found
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/MpackWrapper"
+        "400":
+          description: Invalid mpack ID supplied
+    ######################################
+    # API: refreshMpack
+    # Refresh management pack
+    ######################################          
+    patch:
+      tags:
+        - mpack    
+      summary: Refresh managemnt pack by redownloading compatible management pack from the store
+      description: Refresh managemnt pack by redownloading compatible management pack from the store
+      operationId: refreshMpackById
+      parameters:
+        - in: path
+          name: mpackId
+          description: ID of installed management pack
+          required: true
+          type: integer
+          format: int64
+        - in: query
+          name: refresh
+          type: boolean
+          default: true
+      responses:
+        "404":
+          description: Mpack not found
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/MpackWrapper"
+        "400":
+          description: Invalid mpack ID supplied
+    
 definitions:
   StoreCollection:
     title: "StoreCollection"
@@ -525,4 +641,40 @@ definitions:
     properties:
       url:
         type: string
+        
+  MpackCollection:
+    title: "MpackCollection"
+    type: object
+    properties:
+      href: 
+        type: string
+      items:
+        type: array
+        description: "List of installed management packs"
+        items:
+          $ref : "#/definitions/MpackWrapper"
+  MpackWrapper:
+    title: "MpackWrapper"
+    type: object
+    properties:
+      href:
+        type: string
+      Mpack:
+        $ref: "#/definitions/Mpack"
+  Mpack:
+    title: "Mpack"
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      storeId:
+        type: integer
+        format: int64        
+      packageName:
+        type: string        
+      packageVersion:
+        type: string
+      url:
+        type: string        
       

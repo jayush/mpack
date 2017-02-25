@@ -358,14 +358,14 @@
                 }
             }
         },
-        "/stores/{storeId}/packages/{packageName}/versions/{packageVersion}/download": {
+        "/stores/{storeId}/packages/{packageName}/versions/{packageVersion}/downloadUrl": {
             "get": {
                 "tags": [
                     "store-package-version"
                 ],
                 "summary": "Download package version mpack",
                 "description": "Dowload package version mpack",
-                "operationId": "downloadStorePackageVersion",
+                "operationId": "getStorePackageVersionDownloadUrl",
                 "produces": [
                     "application/json"
                 ],
@@ -419,6 +419,138 @@
                     },
                     "404": {
                         "description": "Package version not found"
+                    }
+                }
+            }
+        },
+        "/mpacks": {
+            "post": {
+                "tags": [
+                    "mpack"
+                ],
+                "summary": "Install management pack in Ambari\n",
+                "description": "Install management pack in Ambari\n",
+                "operationId": "addMpack",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Management pack to be registered.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MpackWrapper"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/MpackWrapper"
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "mpack"
+                ],
+                "summary": "List installed management packs\n",
+                "description": "Returns list of installed management packs",
+                "operationId": "getMpacks",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/MpackCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/mpacks/{mpackId}": {
+            "get": {
+                "tags": [
+                    "mpack"
+                ],
+                "summary": "Get management pack info",
+                "description": "Returns management pack by id",
+                "operationId": "getMpackById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "mpackId",
+                        "description": "ID of installed management pack",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/MpackWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid mpack ID supplied"
+                    },
+                    "404": {
+                        "description": "Mpack not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "mpack"
+                ],
+                "summary": "Refresh managemnt pack by redownloading compatible management pack from the store",
+                "description": "Refresh managemnt pack by redownloading compatible management pack from the store",
+                "operationId": "refreshMpackById",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "mpackId",
+                        "description": "ID of installed management pack",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "refresh",
+                        "type": "boolean",
+                        "default": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/MpackWrapper"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid mpack ID supplied"
+                    },
+                    "404": {
+                        "description": "Mpack not found"
                     }
                 }
             }
@@ -654,6 +786,57 @@
         "StoreDownloadResponse": {
             "type": "object",
             "properties": {
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "MpackCollection": {
+            "title": "MpackCollection",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "description": "List of installed management packs",
+                    "items": {
+                        "$ref": "#/definitions/MpackWrapper"
+                    }
+                }
+            }
+        },
+        "MpackWrapper": {
+            "title": "MpackWrapper",
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "Mpack": {
+                    "$ref": "#/definitions/Mpack"
+                }
+            }
+        },
+        "Mpack": {
+            "title": "Mpack",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "storeId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "packageName": {
+                    "type": "string"
+                },
+                "packageVersion": {
+                    "type": "string"
+                },
                 "url": {
                     "type": "string"
                 }

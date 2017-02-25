@@ -32,11 +32,11 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-24T06:39:18.478Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-24T21:27:39.655Z")
 public class StoresApiServiceImpl extends StoresApiService {
     private static Long s_storeId = 1L;
     private static String s_baseUrl = "http://localhost:8080/api/v2";
-    private static StoreCollection storeCollection = new StoreCollection().href(s_baseUrl + "/stores");
+    public static StoreCollection storeCollection = new StoreCollection().href(s_baseUrl + "/stores");
 
     @Override
     public Response addStore(StoreWrapper body, SecurityContext securityContext) throws NotFoundException {
@@ -46,7 +46,7 @@ public class StoresApiServiceImpl extends StoresApiService {
         return Response.ok().entity(body).build();
     }
     @Override
-    public Response downloadStorePackageVersion(Long storeId, String packageName, String packageVersion, String ambariVersion, String operatingSystem, SecurityContext securityContext) throws NotFoundException {
+    public Response getStorePackageVersionDownloadUrl(Long storeId, String packageName, String packageVersion, String ambariVersion, String operatingSystem, SecurityContext securityContext) throws NotFoundException {
 
         StoreWrapper storeWrapper = null;
         for(StoreWrapper item : storeCollection.getItems()) {
@@ -69,7 +69,7 @@ public class StoresApiServiceImpl extends StoresApiService {
             storeDownloadResponse.setUrl(downloadResponse.getUrl());
             return Response.ok().entity(storeDownloadResponse).build();
         } catch (io.swagger.client.ApiException e) {
-            System.err.println("Exception when calling PackageversionApi#downloadPackageVersion");
+            System.err.println("Exception when calling PackageversionApi#getPackageVersionDownloadUrl");
             e.printStackTrace();
             throw new NotFoundException(1, "Package " + packageName + " with version " + packageVersion + 
                 " not found in store with id " + storeId);
@@ -341,6 +341,7 @@ public class StoresApiServiceImpl extends StoresApiService {
             throw new NotFoundException(1, "Package " + packageName + " with version " + packageVersion + " not found in store with id " + storeId);
         }
     }
+
     @Override
     public Response getStorePackageVersions(Long storeId, String packageName, SecurityContext securityContext) throws NotFoundException {
         StoreWrapper storeWrapper = null;

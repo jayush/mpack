@@ -20,23 +20,26 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Store
+ * Mpack
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-24T21:27:39.655Z")
-public class Store   {
+public class Mpack   {
   @JsonProperty("id")
   private Long id = null;
 
-  @JsonProperty("type")
-  private String type = null;
+  @JsonProperty("storeId")
+  private Long storeId = null;
 
-  @JsonProperty("name")
-  private String name = null;
+  @JsonProperty("packageName")
+  private String packageName = null;
+
+  @JsonProperty("packageVersion")
+  private String packageVersion = null;
 
   @JsonProperty("url")
   private String url = null;
 
-  public Store id(Long id) {
+  public Mpack id(Long id) {
     this.id = id;
     return this;
   }
@@ -55,45 +58,64 @@ public class Store   {
     this.id = id;
   }
 
-  public Store type(String type) {
-    this.type = type;
+  public Mpack storeId(Long storeId) {
+    this.storeId = storeId;
     return this;
   }
 
    /**
-   * Get type
-   * @return type
+   * Get storeId
+   * @return storeId
   **/
-  @JsonProperty("type")
+  @JsonProperty("storeId")
   @ApiModelProperty(value = "")
-  public String getType() {
-    return type;
+  public Long getStoreId() {
+    return storeId;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public void setStoreId(Long storeId) {
+    this.storeId = storeId;
   }
 
-  public Store name(String name) {
-    this.name = name;
+  public Mpack packageName(String packageName) {
+    this.packageName = packageName;
     return this;
   }
 
    /**
-   * Get name
-   * @return name
+   * Get packageName
+   * @return packageName
   **/
-  @JsonProperty("name")
+  @JsonProperty("packageName")
   @ApiModelProperty(value = "")
-  public String getName() {
-    return name;
+  public String getPackageName() {
+    return packageName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setPackageName(String packageName) {
+    this.packageName = packageName;
   }
 
-  public Store url(String url) {
+  public Mpack packageVersion(String packageVersion) {
+    this.packageVersion = packageVersion;
+    return this;
+  }
+
+   /**
+   * Get packageVersion
+   * @return packageVersion
+  **/
+  @JsonProperty("packageVersion")
+  @ApiModelProperty(value = "")
+  public String getPackageVersion() {
+    return packageVersion;
+  }
+
+  public void setPackageVersion(String packageVersion) {
+    this.packageVersion = packageVersion;
+  }
+
+  public Mpack url(String url) {
     this.url = url;
     return this;
   }
@@ -121,27 +143,29 @@ public class Store   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Store store = (Store) o;
-    return Objects.equals(this.id, store.id) &&
-        Objects.equals(this.type, store.type) &&
-        Objects.equals(this.name, store.name) &&
-        Objects.equals(this.url, store.url);
+    Mpack mpack = (Mpack) o;
+    return Objects.equals(this.id, mpack.id) &&
+        Objects.equals(this.storeId, mpack.storeId) &&
+        Objects.equals(this.packageName, mpack.packageName) &&
+        Objects.equals(this.packageVersion, mpack.packageVersion) &&
+        Objects.equals(this.url, mpack.url);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, name, url);
+    return Objects.hash(id, storeId, packageName, packageVersion, url);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Store {\n");
+    sb.append("class Mpack {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    storeId: ").append(toIndentedString(storeId)).append("\n");
+    sb.append("    packageName: ").append(toIndentedString(packageName)).append("\n");
+    sb.append("    packageVersion: ").append(toIndentedString(packageVersion)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("}");
     return sb.toString();

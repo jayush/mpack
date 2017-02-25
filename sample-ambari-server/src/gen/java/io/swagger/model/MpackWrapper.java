@@ -18,32 +18,55 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.model.Mpack;
 
 /**
- * StoreDownloadResponse
+ * MpackWrapper
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2017-02-24T21:27:39.655Z")
-public class StoreDownloadResponse   {
-  @JsonProperty("url")
-  private String url = null;
+public class MpackWrapper   {
+  @JsonProperty("href")
+  private String href = null;
 
-  public StoreDownloadResponse url(String url) {
-    this.url = url;
+  @JsonProperty("Mpack")
+  private Mpack mpack = null;
+
+  public MpackWrapper href(String href) {
+    this.href = href;
     return this;
   }
 
    /**
-   * Get url
-   * @return url
+   * Get href
+   * @return href
   **/
-  @JsonProperty("url")
+  @JsonProperty("href")
   @ApiModelProperty(value = "")
-  public String getUrl() {
-    return url;
+  public String getHref() {
+    return href;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setHref(String href) {
+    this.href = href;
+  }
+
+  public MpackWrapper store(Mpack mpack) {
+    this.mpack = mpack;
+    return this;
+  }
+
+   /**
+   * Get store
+   * @return store
+  **/
+  @JsonProperty("Mpack")
+  @ApiModelProperty(value = "")
+  public Mpack getMpack() {
+    return mpack;
+  }
+
+  public void setMpack(Mpack mpack) {
+    this.mpack = mpack;
   }
 
 
@@ -55,22 +78,24 @@ public class StoreDownloadResponse   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    StoreDownloadResponse storeDownloadResponse = (StoreDownloadResponse) o;
-    return Objects.equals(this.url, storeDownloadResponse.url);
+    MpackWrapper mpackWrapper = (MpackWrapper) o;
+    return Objects.equals(this.href, mpackWrapper.href) &&
+        Objects.equals(this.mpack, mpackWrapper.mpack);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url);
+    return Objects.hash(href, mpack);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class StoreDownloadResponse {\n");
+    sb.append("class MpackWrapper {\n");
     
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    href: ").append(toIndentedString(href)).append("\n");
+    sb.append("    store: ").append(toIndentedString(mpack)).append("\n");
     sb.append("}");
     return sb.toString();
   }
