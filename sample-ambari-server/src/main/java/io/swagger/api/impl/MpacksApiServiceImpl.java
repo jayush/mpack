@@ -111,18 +111,23 @@ public class MpacksApiServiceImpl extends MpacksApiService {
         ApiClient apiClient = new ApiClient().setBasePath(storeBaseUrl);
         PackageversionApi apiInstance = new PackageversionApi();
         apiInstance.setApiClient(apiClient);
-        try {
-            DownloadResponse downloadResponse = apiInstance.getPackageVersionDownloadUrl(
-                mpack.getPackageName(), mpack.getPackageVersion(), newAmbariVersion, operatingSystem);
-            StoreDownloadResponse storeDownloadResponse = new StoreDownloadResponse();
-            storeDownloadResponse.setUrl(downloadResponse.getUrl());
-            mpack.setUrl(storeDownloadResponse.getUrl());
+        if(refresh) {
+            try {
+                DownloadResponse downloadResponse = apiInstance.getPackageVersionDownloadUrl(
+                    mpack.getPackageName(), mpack.getPackageVersion(), newAmbariVersion, operatingSystem);
+                StoreDownloadResponse storeDownloadResponse = new StoreDownloadResponse();
+                storeDownloadResponse.setUrl(downloadResponse.getUrl());
+                mpack.setUrl(storeDownloadResponse.getUrl());
+                return Response.ok().entity(mpackWrapper).build();
+            } catch (io.swagger.client.ApiException e) {
+                System.err.println("Exception when calling PackageversionApi#getPackageVersionDownloadUrl");
+                e.printStackTrace();
+                throw new NotFoundException(1, "Package " + mpack.getPackageName() + " with version " + mpack.getPackageVersion() +
+                    " not found in store with id " + mpack.getStoreId());
+            }
+        } else {
+            // Nothing to modify
             return Response.ok().entity(mpackWrapper).build();
-        } catch (io.swagger.client.ApiException e) {
-            System.err.println("Exception when calling PackageversionApi#getPackageVersionDownloadUrl");
-            e.printStackTrace();
-            throw new NotFoundException(1, "Package " + mpack.getPackageName() + " with version " + mpack.getPackageVersion() +
-                " not found in store with id " + mpack.getStoreId());
         }
     }
 }
